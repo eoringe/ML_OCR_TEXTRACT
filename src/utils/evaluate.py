@@ -44,7 +44,7 @@ def compute_cer_wer(pred_text, target_text):
     target_words = target_text.split()
     pred_words = pred_text.split()
     
-    wer_dist = edit_distance(pred_words, pred_words)
+    wer_dist = edit_distance(pred_words, target_words)
     wer = wer_dist / max(1, len(target_words))
     
     return min(1.0, cer), min(1.0, wer)
