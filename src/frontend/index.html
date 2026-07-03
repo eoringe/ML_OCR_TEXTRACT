@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ML OCR Receipt Textract - Team Hub</title>
+    <!-- Fonts and Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Outfit:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="dark-theme">
+    <div class="glow-container">
+        <div class="glow-orb" id="orb-1"></div>
+        <div class="glow-orb" id="orb-2"></div>
+    </div>
+    
+    <header class="app-header">
+        <div class="header-logo">
+            <i class="fa-solid fa-wand-magic-sparkles logo-icon"></i>
+            <span>Receipt<span class="gradient-text">OCR</span></span>
+        </div>
+        <nav class="header-nav">
+            <span class="badge badge-primary"><i class="fa-solid fa-code-branch"></i> Dev Branch Setup</span>
+            <span class="badge badge-secondary"><i class="fa-solid fa-users"></i> 8-Member Team</span>
+        </nav>
+    </header>
+
+    <main class="app-container">
+        <!-- Hero Section -->
+        <section class="hero-section">
+            <h1 class="hero-title">Extract Bounding Boxes & <span class="gradient-text">Receipt Data</span> Instantly</h1>
+            <p class="hero-subtitle">Deep learning powered OCR parsing engine. Designed for OCR, Text Localization, and Key Information Extraction.</p>
+        </section>
+
+        <!-- Main Upload Zone -->
+        <section class="upload-section">
+            <div class="upload-card" id="drop-zone">
+                <input type="file" id="file-input" accept="image/*" class="file-hidden">
+                <div class="upload-icon-wrapper">
+                    <i class="fa-solid fa-cloud-arrow-up upload-icon"></i>
+                </div>
+                <h3>Drag & drop receipt image</h3>
+                <p>or <span class="browse-link">browse files</span> from your computer</p>
+                <span class="file-types">Supports PNG, JPG, JPEG (Max 10MB)</span>
+            </div>
+        </section>
+
+        <!-- Main Workspace (Hidden until uploaded) -->
+        <section class="workspace-section" id="workspace" style="display: none;">
+            <div class="workspace-grid">
+                
+                <!-- Left: Bounding Box Annotator Card -->
+                <div class="card image-card">
+                    <div class="card-header">
+                        <div class="card-title">
+                            <i class="fa-regular fa-image"></i>
+                            <span>Receipt Annotation Viewer</span>
+                        </div>
+                        <div class="card-actions">
+                            <button id="btn-toggle-boxes" class="btn btn-sm btn-active" title="Toggle boxes">
+                                <i class="fa-solid fa-vector-square"></i> Show Boxes
+                            </button>
+                        </div>
+                    </div>
+                    <div class="card-body image-viewer-wrapper">
+                        <div class="canvas-container" id="canvas-container">
+                            <img id="source-image" src="" alt="Source receipt">
+                            <canvas id="bbox-canvas"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right: Structured Information & JSON Card -->
+                <div class="card results-card">
+                    <div class="card-header tabs-header">
+                        <div class="tabs">
+                            <button class="tab-btn active" data-tab="extracted-data">
+                                <i class="fa-solid fa-file-invoice"></i> Extracted Info
+                            </button>
+                            <button class="tab-btn" data-tab="ocr-transcripts">
+                                <i class="fa-solid fa-list"></i> OCR Transcripts
+                            </button>
+                            <button class="tab-btn" data-tab="raw-json">
+                                <i class="fa-code fa-solid"></i> JSON Output
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="card-body tab-content active" id="extracted-data">
+                        <div class="kie-display">
+                            <div class="kie-row">
+                                <span class="kie-label"><i class="fa-solid fa-building"></i> Merchant</span>
+                                <div class="kie-value" id="res-merchant">-</div>
+                            </div>
+                            <div class="kie-row">
+                                <span class="kie-label"><i class="fa-solid fa-calendar-days"></i> Date</span>
+                                <div class="kie-value" id="res-date">-</div>
+                            </div>
+                            <div class="kie-row">
+                                <span class="kie-label"><i class="fa-solid fa-location-dot"></i> Address</span>
+                                <div class="kie-value" id="res-address">-</div>
+                            </div>
+                            <div class="kie-row total-row">
+                                <span class="kie-label"><i class="fa-solid fa-receipt"></i> Total Amount</span>
+                                <div class="kie-value highlight-text" id="res-total">$0.00</div>
+                            </div>
+                        </div>
+                        
+                        <div class="pipeline-flow">
+                            <h4>OCR Extraction Pipeline Logs</h4>
+                            <div class="flow-steps">
+                                <div class="flow-step completed"><i class="fa-solid fa-circle-check"></i> Task 1: Preprocessing</div>
+                                <div class="flow-step completed"><i class="fa-solid fa-circle-check"></i> Task 2: Localization</div>
+                                <div class="flow-step completed"><i class="fa-solid fa-circle-check"></i> Task 3: Text OCR</div>
+                                <div class="flow-step completed"><i class="fa-solid fa-circle-check"></i> Task 4: KIE Classification</div>
+                                <div class="flow-step completed"><i class="fa-solid fa-circle-check"></i> Task 5: Post-processing</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="card-body tab-content" id="ocr-transcripts">
+                        <div class="search-box">
+                            <i class="fa-solid fa-magnifying-glass search-icon"></i>
+                            <input type="text" id="transcript-search" placeholder="Search OCR transcripts...">
+                        </div>
+                        <ul class="transcript-list" id="res-transcripts-list">
+                            <!-- Populated dynamically -->
+                        </ul>
+                    </div>
+                    
+                    <div class="card-body tab-content" id="raw-json">
+                        <pre class="json-viewer"><code id="res-json-block">{}</code></pre>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+    </main>
+
+    <footer class="app-footer">
+        <p>&copy; 2026 Receipt OCR Textract Pipeline Project. 8-Member Team Collaboration Hub.</p>
+    </footer>
+
+    <script src="app.js"></script>
+</body>
+</html>
