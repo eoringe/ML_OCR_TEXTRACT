@@ -63,6 +63,9 @@ def evaluate_pipeline(data_dir, test_files, pipeline_fn):
     total_samples = 0
     correct_fields = {"company": 0, "date": 0, "address": 0, "total": 0}
     field_counts = {"company": 0, "date": 0, "address": 0, "total": 0}
+    tp = {"company": 0, "date": 0, "address": 0, "total": 0}
+    fp = {"company": 0, "date": 0, "address": 0, "total": 0}
+    fn = {"company": 0, "date": 0, "address": 0, "total": 0}
     
     img_dir = os.path.join(data_dir, "img")
     key_dir = os.path.join(data_dir, "key")
@@ -101,7 +104,27 @@ def evaluate_pipeline(data_dir, test_files, pipeline_fn):
                 field_counts[field] += 1
                 if pred_clean == gt_clean:
                     correct_fields[field] += 1
-                    
+
+            # TP/FP/FN bookkeeping for precision, recall, and F1
+            if gt_clean and pred_clean == gt_clean:
+                tp[field] += 1
+            elif gt_clean and pred_clean != gt_clean:
+                # ground truth expected a value, prediction missed or got it wrong
+                fn[field] += 1
+                if pred_clean:
+                    fp[field] += 1
+            elif not gt_clean and pred_clean:
+                # pipeline predicted a value where none was expected
+                fp[field] += 1
+
+    # Compute precision, recall, F1 per field
+    f1_scores = {}
+    for field in ["company", "date", "address", "total"]:
+        precision = tp[field] / (tp[field] + fp[field]) if (tp[field] + fp[field]) > 0 else 0.0
+        recall = tp[field] / (tp[field] + fn[field]) if (tp[field] + fn[field]) > 0 else 0.0
+        f1 = (2 * precision * recall / (precision + recall)) if (precision + recall) > 0 else 0.0
+        f1_scores[field] = {"precision": precision, "recall": recall, "f1": f1}
+
     # Print metrics
     print("\n================ EVALUATION SUMMARY ================")
     print(f"Processed samples: {total_samples}")
@@ -110,10 +133,20 @@ def evaluate_pipeline(data_dir, test_files, pipeline_fn):
         count = field_counts[field]
         correct = correct_fields[field]
         accuracy = (correct / count) * 100 if count > 0 else 0.0
-        print(f"  Field '{field:<8}': Accuracy = {accuracy:>6.2f}% ({correct}/{count})")
+        scores = f1_scores[field]
+        print(f"  Field '{field:<8}': Accuracy = {accuracy:>6.2f}% ({correct}/{count})  "
+              f"Precision = {scores['precision']:.2f}  Recall = {scores['recall']:.2f}  F1 = {scores['f1']:.2f}")
     print("====================================================")
-    
-    return {f: (correct_fields[f] / field_counts[f] if field_counts[f] > 0 else 0) for f in field_counts}
+
+    return {
+        f: {
+            "accuracy": correct_fields[f] / field_counts[f] if field_counts[f] > 0 else 0,
+            "precision": f1_scores[f]["precision"],
+            "recall": f1_scores[f]["recall"],
+            "f1": f1_scores[f]["f1"],
+        }
+        for f in field_counts
+    }
 
 if __name__ == "__main__":
     # Test metric calculations
