@@ -66,6 +66,8 @@ def evaluate_pipeline(data_dir, test_files, pipeline_fn):
     tp = {"company": 0, "date": 0, "address": 0, "total": 0}
     fp = {"company": 0, "date": 0, "address": 0, "total": 0}
     fn = {"company": 0, "date": 0, "address": 0, "total": 0}
+    cer_totals = {"company": 0.0, "date": 0.0, "address": 0.0, "total": 0.0}
+    wer_totals = {"company": 0.0, "date": 0.0, "address": 0.0, "total": 0.0}
     
     img_dir = os.path.join(data_dir, "img")
     key_dir = os.path.join(data_dir, "key")
@@ -105,6 +107,11 @@ def evaluate_pipeline(data_dir, test_files, pipeline_fn):
                 if pred_clean == gt_clean:
                     correct_fields[field] += 1
 
+                # Text-similarity metrics (how close, not just equal/not-equal)
+                cer, wer = compute_cer_wer(pred_clean, gt_clean)
+                cer_totals[field] += cer
+                wer_totals[field] += wer
+
             # TP/FP/FN bookkeeping for precision, recall, and F1
             if gt_clean and pred_clean == gt_clean:
                 tp[field] += 1
@@ -125,6 +132,10 @@ def evaluate_pipeline(data_dir, test_files, pipeline_fn):
         f1 = (2 * precision * recall / (precision + recall)) if (precision + recall) > 0 else 0.0
         f1_scores[field] = {"precision": precision, "recall": recall, "f1": f1}
 
+    # Average CER/WER per field
+    avg_cer = {f: (cer_totals[f] / field_counts[f] if field_counts[f] > 0 else 0.0) for f in field_counts}
+    avg_wer = {f: (wer_totals[f] / field_counts[f] if field_counts[f] > 0 else 0.0) for f in field_counts}
+
     # Print metrics
     print("\n================ EVALUATION SUMMARY ================")
     print(f"Processed samples: {total_samples}")
@@ -135,7 +146,8 @@ def evaluate_pipeline(data_dir, test_files, pipeline_fn):
         accuracy = (correct / count) * 100 if count > 0 else 0.0
         scores = f1_scores[field]
         print(f"  Field '{field:<8}': Accuracy = {accuracy:>6.2f}% ({correct}/{count})  "
-              f"Precision = {scores['precision']:.2f}  Recall = {scores['recall']:.2f}  F1 = {scores['f1']:.2f}")
+              f"Precision = {scores['precision']:.2f}  Recall = {scores['recall']:.2f}  F1 = {scores['f1']:.2f}  "
+              f"CER = {avg_cer[field]:.2f}  WER = {avg_wer[field]:.2f}")
     print("====================================================")
 
     return {
@@ -144,6 +156,8 @@ def evaluate_pipeline(data_dir, test_files, pipeline_fn):
             "precision": f1_scores[f]["precision"],
             "recall": f1_scores[f]["recall"],
             "f1": f1_scores[f]["f1"],
+            "cer": avg_cer[f],
+            "wer": avg_wer[f],
         }
         for f in field_counts
     }
