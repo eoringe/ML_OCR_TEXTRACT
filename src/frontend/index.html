@@ -38,13 +38,40 @@
         <!-- Main Upload Zone -->
         <section class="upload-section">
             <div class="upload-card" id="drop-zone">
-                <input type="file" id="file-input" accept="image/*" class="file-hidden">
+                <input type="file" id="file-input" accept="image/*" class="file-hidden" multiple>
                 <div class="upload-icon-wrapper">
                     <i class="fa-solid fa-cloud-arrow-up upload-icon"></i>
                 </div>
-                <h3>Drag & drop receipt image</h3>
+                <h3>Drag & drop receipt images</h3>
                 <p>or <span class="browse-link">browse files</span> from your computer</p>
                 <span class="file-types">Supports PNG, JPG, JPEG (Max 10MB)</span>
+            </div>
+
+            <!-- Loading Overlay -->
+            <div class="loading-overlay" id="loading-overlay" style="display: none;">
+                <div class="spinner-container">
+                    <div class="spinner"></div>
+                    <p class="loading-text">Processing through OCR pipeline...</p>
+                    <div class="loading-steps" id="loading-steps">
+                        <span class="step-indicator active">Preprocessing</span>
+                        <span class="step-indicator">Detection</span>
+                        <span class="step-indicator">Recognition</span>
+                        <span class="step-indicator">KIE</span>
+                        <span class="step-indicator">Post-processing</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Error Display -->
+            <div class="error-card" id="error-card" style="display: none;">
+                <div class="error-icon-wrapper">
+                    <i class="fa-solid fa-circle-exclamation error-icon"></i>
+                </div>
+                <h3 class="error-title">Pipeline Error</h3>
+                <p class="error-message" id="error-message">An error occurred while processing your receipt.</p>
+                <button class="btn btn-retry" id="btn-retry">
+                    <i class="fa-solid fa-rotate-right"></i> Try Again
+                </button>
             </div>
         </section>
 
@@ -52,7 +79,22 @@
         <section class="workspace-section" id="workspace" style="display: none;">
             <div class="workspace-grid">
                 
-                <!-- Left: Bounding Box Annotator Card -->
+                <!-- Left Sidebar: Receipt Queue -->
+                <div class="card queue-card" id="queue-card">
+                    <div class="card-header">
+                        <div class="card-title">
+                            <i class="fa-solid fa-list-check"></i>
+                            <span>Receipt Queue (<span id="queue-count">0</span>)</span>
+                        </div>
+                    </div>
+                    <div class="card-body queue-body">
+                        <ul class="queue-list" id="queue-list">
+                            <!-- Populated dynamically -->
+                        </ul>
+                    </div>
+                </div>
+                
+                <!-- Center: Bounding Box Annotator Card -->
                 <div class="card image-card">
                     <div class="card-header">
                         <div class="card-title">
@@ -132,6 +174,14 @@
                     </div>
                     
                     <div class="card-body tab-content" id="raw-json">
+                        <div class="json-actions">
+                            <button class="btn btn-sm" id="btn-download-json">
+                                <i class="fa-solid fa-download"></i> Download JSON
+                            </button>
+                            <button class="btn btn-sm" id="btn-copy-json">
+                                <i class="fa-solid fa-copy"></i> Copy
+                            </button>
+                        </div>
                         <pre class="json-viewer"><code id="res-json-block">{}</code></pre>
                     </div>
                 </div>

@@ -1,0 +1,141 @@
+=================== DIAGNOSTICS REPORT ===================
+
+=================== File: 476.jpg ===================
+[COMPANY] Status: MATCH
+  GT:   'SANYU STATIONERY SHOP'
+  Pred: 'SANYU STATIONERY SHOP'
+[DATE] Status: MATCH
+  GT:   '05/07/2017'
+  Pred: '05/07/2017'
+[ADDRESS] Status: MISMATCH
+  GT:   'NO. 31G&33G, JALAN SETIA INDAH X ,U13/X 40170 SETIA ALAM'
+  Pred: 'NO. 3168336, JALAN SETIA INDAH X , U13/X 40170 SETIA ALAM'
+[TOTAL] Status: MATCH
+  GT:   '2.00'
+  Pred: '2.00'
+
+=================== File: 105.jpg ===================
+[COMPANY] Status: MATCH
+  GT:   'SWEET FOREST CAFE'
+  Pred: 'SWEET FOREST CAFE'
+[DATE] Status: MATCH
+  GT:   '14-02-2018'
+  Pred: '14-02-2018'
+[ADDRESS] Status: MATCH
+  GT:   'NO 21, JLN BUNGA KANTAN TAMAN P. RAMLEE SETAPAK 53000 KUALA LUMPUR'
+  Pred: 'NO 21, JLN BUNGA KANTAN TAMAN P. RAMLEE SETAPAK 53000 KUALA LUMPUR'
+[TOTAL] Status: MATCH
+  GT:   '30.30'
+  Pred: '30.30'
+
+=================== File: 389.jpg ===================
+[COMPANY] Status: MATCH
+  GT:   'MR. D.I.Y. (M) SDN BHD'
+  Pred: 'MR. D.I.Y. (M) SDN BHD'
+[DATE] Status: MATCH
+  GT:   '25-01-16'
+  Pred: '25-01-16'
+[ADDRESS] Status: MISMATCH
+  GT:   'LOT 1851-A & 1851-B, JALAN KPB 6, KAWASAN PERINDUSTRIAN BALAKONG, 43300 SERI KEMBANGAN, SELANGOR'
+  Pred: 'Lot 1851-6 & 1851-B, JALAN KPB 6, KAWASan PERINDUSTRIAN BALAKONG , 43300 SERI KEMBANGAN, SELANGOR'
+[TOTAL] Status: MISMATCH
+  GT:   'RM 21.00'
+  Pred: '21.00'
+
+=================== File: 001.jpg ===================
+[COMPANY] Status: MATCH
+  GT:   'INDAH GIFT & HOME DECO'
+  Pred: 'INDAH GIFT & HOME DECO'
+[DATE] Status: MATCH
+  GT:   '19/10/2018'
+  Pred: '19/10/2018'
+[ADDRESS] Status: MISMATCH
+  GT:   '27, JALAN DEDAP 13, TAMAN JOHOR JAYA, 81100 JOHOR BAHRU, JOHOR.'
+  Pred: '27, JALAN DEDAP 1J, TaMAN JOHOR JAYA 81100 JOHOR BAHRU, JOHOR.'
+[TOTAL] Status: MATCH
+  GT:   '60.30'
+  Pred: '60.30'
+
+=================== File: 582.jpg ===================
+[COMPANY] Status: MATCH
+  GT:   'C W KHOO HARDWARE SDN BHD'
+  Pred: 'C W KHOO HARDWARE SDN BHD'
+[DATE] Status: MATCH
+  GT:   '04-05-18'
+  Pred: '04-05-18'
+[ADDRESS] Status: MISMATCH
+  GT:   'NO.50, JALAN PBS 14/11, KAWASAN PERINDUSTRIAN BUKIT SERDANG,'
+  Pred: 'NO.50 JALAN PBS 14/11 KAWASAN PERINDUSTRIAN BUKIT SERDANG'
+[TOTAL] Status: MATCH
+  GT:   '19.00'
+  Pred: '19.00'
+
+=================== File: 561.jpg ===================
+[COMPANY] Status: MATCH
+  GT:   'PAPPARICH BMC'
+  Pred: 'PAPPARICH BMC'
+[DATE] Status: MATCH
+  GT:   '15 JUN 18'
+  Pred: '15 Jun 18'
+[ADDRESS] Status: MISMATCH
+  GT:   'NO.19 & 21 JALAN TEMENGGUNG 23/9 BANDAR MAHKOTA CHERAS 43200 SELANGOR DARUL EHSAN, MALAYSIA'
+  Pred: 'NO . 19 8 21 JALAN TEMENGGUNG 23/9 BANDAR MAKOta CHERAS 43200 SELANGIOR DARUL EHSAN MALAYSIA'
+[TOTAL] Status: MATCH
+  GT:   '17.22'
+  Pred: '17.22'
+
+=================== File: 080.jpg ===================
+[COMPANY] Status: MATCH
+  GT:   'HON HWA HARDWARE TRADING'
+  Pred: 'HON HWA HARDWARE TRADING'
+[DATE] Status: MATCH
+  GT:   '21/09/2017'
+  Pred: '21/09/2017'
+[ADDRESS] Status: MISMATCH
+  GT:   'NO 37, JALAN MANIS 7, TAMAN SEGAR, 56100 CHERAS, KUALA LUMPUR.'
+  Pred: 'NO 37, JALAN MANIS 7, TAMAN SEGAR, 56100 CHERAS KUALA LUMPUR'
+[TOTAL] Status: MATCH
+  GT:   '10.40'
+  Pred: '10.40'
+
+=================== File: 205.jpg ===================
+[COMPANY] Status: MATCH
+  GT:   'MR. D.I.Y. (M) SDN BHD'
+  Pred: 'MR. D.I.Y. (M) SDN BHD'
+[DATE] Status: MATCH
+  GT:   '23-03-18'
+  Pred: '23-03-18'
+[ADDRESS] Status: MISMATCH
+  GT:   'LOT 1851-A & 1851-B, JALAN KPB 6, KAWASAN PERINDUSTRIAN BALAKONG, 43300 SERI KEMBANGAN, SELANGOR'
+  Pred: 'LOT 1851-4 & 1851-B _ JalAN KPB 6 , Kahasan PERINDUSTRIAN BaLAKONG 43300 SERI KEMBANGAN _ SELANGOR'
+[TOTAL] Status: MATCH
+  GT:   '26.10'
+  Pred: '26.10'
+
+=================== File: 034.jpg ===================
+[COMPANY] Status: MISMATCH
+  GT:   'PERNIAGAAN ZHENG HUI'
+  Pred: 'F3O 41'
+[DATE] Status: MATCH
+  GT:   '09/03/2018'
+  Pred: '09/03/2018'
+[ADDRESS] Status: MISMATCH
+  GT:   'NO.59 JALAN PERMAS 9/5 BANDAR BARU PERMAS JAYA 81750 JOHOR BAHRU'
+  Pred: 'NO.59 JALAN PERMAS 9/6 BANDAR BARU PERMAS JAYA 81750 JOHOR BAHRU'
+[TOTAL] Status: MISMATCH
+  GT:   '332.30'
+  Pred: '373.00'
+
+=================== File: 508.jpg ===================
+[COMPANY] Status: MISMATCH
+  GT:   'AIK HUAT HARDWARE ENTERPRISE (SETIA ALAM) SDN BHD'
+  Pred: 'AIX HUAT HARDWAKE'
+[DATE] Status: MATCH
+  GT:   '15/11/2017'
+  Pred: '15/11/2017'
+[ADDRESS] Status: MISMATCH
+  GT:   'NO. 17-G, JALAN SETIA INDAH (X) U13/X, SETIA ALAM, SEKSYEN U13, 40170 SHAH ALAM,'
+  Pred: 'NO. 17-0 JaLAN SEzIA IndaX SEXSVEN U33/ 903677ShaF A W3 '40170''SHAH Alen'
+[TOTAL] Status: MATCH
+  GT:   '16.00'
+  Pred: '16.00'

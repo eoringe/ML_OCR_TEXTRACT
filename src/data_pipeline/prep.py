@@ -267,7 +267,12 @@ def deskew(image, max_angle=10.0):
 
     angles = []
     for line in lines:
-        x1, y1, x2, y2 = line[0]
+        if hasattr(line, "ndim") and line.ndim == 1:
+            x1, y1, x2, y2 = line
+        elif len(line) == 4 and not hasattr(line[0], "__len__"):
+            x1, y1, x2, y2 = line
+        else:
+            x1, y1, x2, y2 = line[0]
         angle = np.degrees(np.arctan2(y2 - y1, x2 - x1))
         if abs(angle) < max_angle:
             angles.append(angle)
